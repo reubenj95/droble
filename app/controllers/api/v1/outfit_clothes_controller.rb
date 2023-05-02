@@ -1,4 +1,4 @@
-class OutfitClothesController < ApplicationController
+class Api::V1::OutfitClothesController < ApplicationController
   before_action :set_outfit_clothe, only: %i[ show update destroy ]
 
   # GET /outfit_clothes

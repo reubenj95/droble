@@ -1,4 +1,4 @@
-class ColoursController < ApplicationController
+class Api::V1::ColoursController < ApplicationController
   before_action :set_colour, only: %i[ show update destroy ]
 
   # GET /colours

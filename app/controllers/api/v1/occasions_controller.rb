@@ -1,4 +1,4 @@
-class OccasionsController < ApplicationController
+class Api::V1::OccasionsController < ApplicationController
   before_action :set_occasion, only: %i[ show update destroy ]
 
   # GET /occasions

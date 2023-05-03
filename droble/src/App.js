@@ -15,6 +15,7 @@ import {
   Button,
   Anchor,
   Divider,
+  Flex,
 } from '@mantine/core'
 import {
   IconHanger,
@@ -146,6 +147,15 @@ function App() {
             />
           </MediaQuery>
         </Header>
+      }
+      footer={
+        <footer>
+          <Flex className="footer-content">
+            <p>
+              <strong>&copy; Droble {new Date().getFullYear()}</strong>
+            </p>
+          </Flex>
+        </footer>
       }
     >
       <Routes>

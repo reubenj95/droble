@@ -1,0 +1,65 @@
+.clothes-card{
+  max-width: 350px;
+  width: 30%;
+  margin: 0 25px 50px 0;
+}
+
+.clothes-container{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.mobile-button {
+  display: none;
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  color: #fff;
+  background-color: #228be6;
+  height: 75px;
+  width: 75px;
+  border: none;
+  border-radius: 50%;
+}
+.footer-content{
+  min-height: 50px;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 25px 50px;
+}
+
+@media only screen and (max-width: 991px){
+  .clothes-card{
+    width: 45%;
+    margin: 0 25px 50px 0;
+  }
+  .mobile-button {
+    display: block;
+  }
+  .top-add-button {
+    display:none;
+  }
+  .footer-content{
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media only screen and (max-width: 575px){
+  .clothes-card{
+    width: 95%;
+    margin: 0 25px 50px 0;
+  }
+  .clothes-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+ 
+
+}
+

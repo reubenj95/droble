@@ -24,7 +24,6 @@ import {
   IconAdjustmentsFilled,
   IconHelp,
 } from '@tabler/icons-react'
-import './App.css'
 import Wardrobe from './components/Wardrobe'
 import Outfits from './components/Outfits'
 

@@ -45,10 +45,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_223853) do
   end
 
   create_table "outfit_clothes", force: :cascade do |t|
-    t.integer "clothes_id"
-    t.integer "outfit_id"
+    t.integer "clothe_id", null: false
+    t.integer "outfit_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["clothe_id"], name: "index_outfit_clothes_on_clothe_id"
+    t.index ["outfit_id"], name: "index_outfit_clothes_on_outfit_id"
   end
 
   create_table "outfits", force: :cascade do |t|
@@ -66,4 +68,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_223853) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "outfit_clothes", "clothes"
+  add_foreign_key "outfit_clothes", "outfits"
 end

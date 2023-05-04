@@ -3,7 +3,7 @@ import { useDisclosure } from '@mantine/hooks'
 import { useGetWardrobeQuery } from '../features/api/apiSlice'
 import ClothesCard from './ClothesCard'
 import ItemSlideout from './ItemSlideout'
-import { Flex, Pagination, Button } from '@mantine/core'
+import { Flex, Pagination, Button, Title } from '@mantine/core'
 import { IconPlus } from '@tabler/icons-react'
 
 function Wardrobe() {
@@ -66,8 +66,8 @@ function Wardrobe() {
   return (
     <>
       <section>
-        <Flex align="center" justify="space-between">
-          <h2>Browse your wardrobe</h2>
+        <Flex align="center" justify="space-between" mb="xl">
+          <Title order={2}>Browse your wardrobe</Title>
           <Button onClick={open} className="top-add-button">
             Add new item
           </Button>

@@ -5,6 +5,7 @@ import ClothesCard from './ClothesCard'
 import ItemSlideout from './ItemSlideout'
 import { Flex, Pagination, Button, Title } from '@mantine/core'
 import { IconPlus } from '@tabler/icons-react'
+import Pages from './Pages'
 
 function Wardrobe() {
   const [opened, { open, close }] = useDisclosure(false)
@@ -76,10 +77,10 @@ function Wardrobe() {
         <div className="clothes-container">{content}</div>
         <Flex justify="center">
           {clothes && (
-            <Pagination
-              total={clothes.length / activePage.interval}
-              value={activePage.pageNumber}
-              onChange={handlePagination}
+            <Pages
+              data={clothes}
+              activePage={activePage}
+              handlePagination={handlePagination}
             />
           )}
         </Flex>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDisclosure } from '@mantine/hooks'
 import { useGetOutfitsQuery } from '../features/api/apiSlice'
-import ClothesCard from './ClothesCard'
+import OutfitCard from './OutfitCard'
 import ItemSlideout from './ItemSlideout'
 import { Flex, Button, Title } from '@mantine/core'
 import { IconPlus } from '@tabler/icons-react'
@@ -43,7 +43,7 @@ function Outfits() {
         index >= activePage.offset &&
         index < activePage.offset + activePage.interval
       ) {
-        outfitsArray.push(<ClothesCard key={item.id} item={item} />)
+        outfitsArray.push(<OutfitCard key={item.id} item={item} />)
       }
     })
     content = outfitsArray

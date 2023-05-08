@@ -4,6 +4,12 @@
   margin: 0 25px 50px 0;
 }
 
+.outfit-card{
+  max-width: 350px;
+  width: 30%;
+  margin: 0 25px 50px 0;
+}
+
 .clothes-container{
   display: flex;
   justify-content: space-around;
@@ -29,6 +35,29 @@
   margin: 25px 50px;
 }
 
+.add-image-slideout{
+  display: flex;
+  width: 100%;
+  min-height: 25rem;
+  justify-content: center;
+  align-items: center;
+  background-color: #eeeeee;
+  color:#aeaeae; 
+}
+
+.add-image-slideout:hover{
+  background-color: #eeeeee;
+  color:#8bc4ec; 
+  cursor: pointer;
+}
+
+.add-image-slideout:hover::before{
+  content: "Add an image";
+  position: absolute;
+  top: 23rem;
+  font-size: 2rem;
+  font-family: arial, sans-serif
+}
 @media only screen and (max-width: 991px){
   .clothes-card{
     width: 45%;

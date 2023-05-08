@@ -10,7 +10,18 @@ export const apiSlice = createApi({
     getOutfits: builder.query({
       query: () => '/outfits',
     }),
+    addToOutfit: builder.mutation({
+      query: (newOutfit) => ({
+        url: '/outfit_clothes',
+        method: 'POST',
+        body: newOutfit,
+      }),
+    }),
   }),
 })
 
-export const { useGetWardrobeQuery, useGetOutfitsQuery } = apiSlice
+export const {
+  useGetWardrobeQuery,
+  useGetOutfitsQuery,
+  useAddToOutfitMutation,
+} = apiSlice

@@ -15,13 +15,14 @@ class Api::V1::OutfitClothesController < ApplicationController
 
   # POST /outfit_clothes
   def create
-    @outfit_clothe = OutfitClothe.new(outfit_clothe_params)
+    @outfit_clothe = OutfitClothe.create(outfit_clothe_params.to_unsafe_hash)
+    @outfit_clothe.save
+    # if @outfit_clothe.save
+    #   render json: @outfit_clothe, status: :created, location: @outfit_clothe
+    # else
+    #   render json: @outfit_clothe.errors, status: :unprocessable_entity
+    # end
 
-    if @outfit_clothe.save
-      render json: @outfit_clothe, status: :created, location: @outfit_clothe
-    else
-      render json: @outfit_clothe.errors, status: :unprocessable_entity
-    end
   end
 
   # PATCH/PUT /outfit_clothes/1

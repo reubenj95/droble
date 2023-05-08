@@ -10,11 +10,15 @@ import {
   Select,
   Title,
 } from '@mantine/core'
-import { useGetOutfitsQuery } from '../features/api/apiSlice'
+import {
+  useGetOutfitsQuery,
+  useAddToOutfitMutation,
+} from '../features/api/apiSlice'
 
 function ClothesCard(props) {
   const { edit, item } = props
   const { data: outfits, isLoading, isSuccess, isError } = useGetOutfitsQuery()
+  const [addToOutfit, result] = useAddToOutfitMutation()
   const [outfitNames, setOutfitNames] = useState([])
 
   useEffect(() => {
@@ -26,8 +30,12 @@ function ClothesCard(props) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log(e.target[1].value)
-    console.log(item)
+    const outfit = outfits.filter((outfit) => outfit.name === e.target[1].value)
+    const newOutfitItem = {
+      clothe_id: item.id,
+      outfit_id: outfit[0].id,
+    }
+    addToOutfit(newOutfitItem)
   }
 
   let popoverContent

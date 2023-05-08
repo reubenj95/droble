@@ -7,7 +7,10 @@ export const apiSlice = createApi({
     getWardrobe: builder.query({
       query: () => '/clothes',
     }),
+    getOutfits: builder.query({
+      query: () => '/outfits',
+    }),
   }),
 })
 
-export const { useGetWardrobeQuery } = apiSlice
+export const { useGetWardrobeQuery, useGetOutfitsQuery } = apiSlice

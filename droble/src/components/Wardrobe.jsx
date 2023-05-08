@@ -3,8 +3,9 @@ import { useDisclosure } from '@mantine/hooks'
 import { useGetWardrobeQuery } from '../features/api/apiSlice'
 import ClothesCard from './ClothesCard'
 import ItemSlideout from './ItemSlideout'
-import { Flex, Pagination, Button, Title } from '@mantine/core'
+import { Flex, Button, Title } from '@mantine/core'
 import { IconPlus } from '@tabler/icons-react'
+import Pages from './Pages'
 
 function Wardrobe() {
   const [opened, { open, close }] = useDisclosure(false)
@@ -20,6 +21,7 @@ function Wardrobe() {
     offset: 0,
     interval: 12,
   })
+  const [selected, setSelected] = useState({})
 
   function handlePagination(pageNum) {
     const offset = pageNum * activePage.interval
@@ -29,6 +31,21 @@ function Wardrobe() {
       interval: activePage.interval,
     })
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+  }
+  function handleDetailsClick(item) {
+    setSelected(item)
+    open()
+  }
+
+  function handleNewClick() {
+    setSelected({
+      description: 'Describe this item',
+      occasion: null,
+      colour: null,
+      brand: null,
+      image: null,
+    })
+    open()
   }
 
   let content
@@ -42,7 +59,13 @@ function Wardrobe() {
         index >= activePage.offset &&
         index < activePage.offset + activePage.interval
       ) {
-        clothesArray.push(<ClothesCard key={item.id} item={item} />)
+        clothesArray.push(
+          <ClothesCard
+            key={item.id}
+            item={item}
+            open={() => handleDetailsClick(item)}
+          />
+        )
       }
     })
     content = clothesArray
@@ -68,7 +91,7 @@ function Wardrobe() {
       <section>
         <Flex align="center" justify="space-between" mb="xl">
           <Title order={2}>Browse your wardrobe</Title>
-          <Button onClick={open} className="top-add-button">
+          <Button onClick={handleNewClick} className="top-add-button">
             Add new item
           </Button>
         </Flex>
@@ -76,16 +99,21 @@ function Wardrobe() {
         <div className="clothes-container">{content}</div>
         <Flex justify="center">
           {clothes && (
-            <Pagination
-              total={clothes.length / activePage.interval}
-              value={activePage.pageNumber}
-              onChange={handlePagination}
+            <Pages
+              data={clothes}
+              activePage={activePage}
+              handlePagination={handlePagination}
             />
           )}
         </Flex>
       </section>
-      <ItemSlideout opened={opened} close={close} drawer={drawer} />
-      <Button onClick={open} className="mobile-button">
+      <ItemSlideout
+        opened={opened}
+        close={close}
+        drawer={drawer}
+        item={selected}
+      />
+      <Button onClick={handleNewClick} className="mobile-button">
         <IconPlus size={50} />
       </Button>
     </>

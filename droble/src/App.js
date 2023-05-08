@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route, useNavigate, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import {
   AppShell,
@@ -27,8 +27,8 @@ import {
 import Wardrobe from './components/Wardrobe'
 import Outfits from './components/Outfits'
 
-const data = [
-  { icon: IconHanger, label: 'Wardrobe', target: '/' },
+const navLinks = [
+  { icon: IconHanger, label: 'Wardrobe', target: 'wardrobe' },
   {
     icon: IconShirt,
     label: 'Outfits',
@@ -39,11 +39,11 @@ const data = [
 function App() {
   const theme = useMantineTheme()
   const [opened, setOpened] = useState(false)
-  const [active, setActive] = useState(0)
+  const [active, setActive] = useState(window.location.href.split('/')[3])
   const navigate = useNavigate()
 
-  function handleNavClick(index, target) {
-    setActive(index)
+  function handleNavClick(target) {
+    setActive(target)
     navigate(target)
     setOpened(false)
   }
@@ -64,14 +64,14 @@ function App() {
           width={{ sm: 200, lg: 300 }}
         >
           <Navbar.Section grow mt="md">
-            {data.map((link, index) => {
+            {navLinks.map((link, index) => {
               return (
                 <NavLink
                   key={link.label}
                   to={link.target}
-                  active={index === active}
+                  active={link.target === active}
                   icon={<link.icon size="1rem" stroke={1.5} />}
-                  onClick={() => handleNavClick(index, link.target)}
+                  onClick={() => handleNavClick(link.target)}
                   label={link.label}
                 />
               )
@@ -158,7 +158,7 @@ function App() {
       }
     >
       <Routes>
-        <Route path="/" element={<Wardrobe />} />
+        <Route path="/wardrobe" element={<Wardrobe />} />
         <Route path="/outfits" element={<Outfits />} />
       </Routes>
     </AppShell>

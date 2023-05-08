@@ -1,28 +1,29 @@
 import { useState } from 'react'
 import { useDisclosure } from '@mantine/hooks'
-import { useGetWardrobeQuery } from '../features/api/apiSlice'
-import ClothesCard from './ClothesCard'
+import { useGetOutfitsQuery } from '../features/api/apiSlice'
+import OutfitCard from './OutfitCard'
 import ItemSlideout from './ItemSlideout'
-import { Flex, Pagination, Button, Title } from '@mantine/core'
+import { Flex, Button, Title } from '@mantine/core'
 import { IconPlus } from '@tabler/icons-react'
+import Pages from './Pages'
 
 function Outfits() {
   const [opened, { open, close }] = useDisclosure(false)
   const {
-    data: clothes,
+    data: outfits,
     isLoading,
     isSuccess,
     isError,
     error,
-  } = useGetWardrobeQuery()
+  } = useGetOutfitsQuery()
   const [activePage, setActivePage] = useState({
     pageNumber: 1,
     offset: 0,
-    interval: 12,
+    interval: 9,
   })
 
   function handlePagination(pageNum) {
-    const offset = pageNum * activePage.interval
+    const offset = (pageNum - 1) * activePage.interval
     setActivePage({
       pageNumber: pageNum,
       offset,
@@ -36,16 +37,16 @@ function Outfits() {
   if (isLoading) {
     content = <p>Loading your outfits</p>
   } else if (isSuccess) {
-    let clothesArray = []
-    clothes.forEach((item, index) => {
+    let outfitsArray = []
+    outfits.forEach((item, index) => {
       if (
         index >= activePage.offset &&
         index < activePage.offset + activePage.interval
       ) {
-        clothesArray.push(<ClothesCard key={item.id} item={item} />)
+        outfitsArray.push(<OutfitCard key={item.id} item={item} />)
       }
     })
-    content = clothesArray
+    content = outfitsArray
   } else if (isError) {
     content = <div>{error.toString()}</div>
   }
@@ -75,11 +76,11 @@ function Outfits() {
 
         <div className="clothes-container">{content}</div>
         <Flex justify="center">
-          {clothes && (
-            <Pagination
-              total={clothes.length / activePage.interval}
-              value={activePage.pageNumber}
-              onChange={handlePagination}
+          {outfits && (
+            <Pages
+              data={outfits}
+              activePage={activePage}
+              handlePagination={handlePagination}
             />
           )}
         </Flex>

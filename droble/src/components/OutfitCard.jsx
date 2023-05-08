@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Group, Text, Button, Image } from '@mantine/core'
 
 function OutfitCard(props) {
-  const { item } = props
+  const { item, open } = props
   return (
     <Card
       className="clothes-card"
@@ -19,7 +19,14 @@ function OutfitCard(props) {
         <Text weight={500}>{item.name}</Text>
       </Group>
 
-      <Button variant="light" color="blue" fullWidth mt="md" radius="md">
+      <Button
+        onClick={open}
+        variant="light"
+        color="blue"
+        fullWidth
+        mt="md"
+        radius="md"
+      >
         View Details
       </Button>
     </Card>

@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { useDisclosure } from '@mantine/hooks'
 import { useGetOutfitsQuery } from '../features/api/apiSlice'
 import OutfitCard from './OutfitCard'
-import ItemSlideout from './ItemSlideout'
+
 import { Flex, Button, Title } from '@mantine/core'
 import { IconPlus } from '@tabler/icons-react'
 import Pages from './Pages'
+import ManageOutfit from './ManageOutfit'
 
 function Outfits() {
-  const [opened, { open, close }] = useDisclosure(false)
+  const [editOpened, editControl] = useDisclosure(false)
   const {
     data: outfits,
     isLoading,
@@ -21,6 +22,7 @@ function Outfits() {
     offset: 0,
     interval: 9,
   })
+  const [selected, setSelected] = useState({})
 
   function handlePagination(pageNum) {
     const offset = (pageNum - 1) * activePage.interval
@@ -30,6 +32,20 @@ function Outfits() {
       interval: activePage.interval,
     })
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+  }
+  function handleDetailsClick(item) {
+    setSelected(item)
+    editControl.open()
+  }
+  function handleNewClick() {
+    setSelected({
+      description: 'Describe this item',
+      occasion: null,
+      colour: null,
+      brand: null,
+      image: null,
+    })
+    editControl.open()
   }
 
   let content
@@ -43,7 +59,13 @@ function Outfits() {
         index >= activePage.offset &&
         index < activePage.offset + activePage.interval
       ) {
-        outfitsArray.push(<OutfitCard key={item.id} item={item} />)
+        outfitsArray.push(
+          <OutfitCard
+            key={item.id}
+            item={item}
+            open={() => handleDetailsClick(item)}
+          />
+        )
       }
     })
     content = outfitsArray
@@ -69,8 +91,8 @@ function Outfits() {
       <section>
         <Flex align="center" justify="space-between" mb="xl">
           <Title order={2}>Select an Outfit</Title>
-          <Button onClick={open} className="top-add-button">
-            Add new item
+          <Button onClick={handleNewClick} className="top-add-button">
+            New outfit
           </Button>
         </Flex>
 
@@ -85,8 +107,13 @@ function Outfits() {
           )}
         </Flex>
       </section>
-      <ItemSlideout opened={opened} close={close} drawer={drawer} />
-      <Button onClick={open} className="mobile-button">
+      <ManageOutfit
+        opened={editOpened}
+        close={editControl.close}
+        drawer={{ position: 'bottom', size: '95%' }}
+        item={selected}
+      />
+      <Button onClick={handleNewClick} className="mobile-button">
         <IconPlus size={50} />
       </Button>
     </>

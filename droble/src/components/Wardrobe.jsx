@@ -3,12 +3,21 @@ import { useDisclosure } from '@mantine/hooks'
 import { useGetWardrobeQuery } from '../features/api/apiSlice'
 import ClothesCard from './ClothesCard'
 import ItemSlideout from './ItemSlideout'
-import { Flex, Button, Title } from '@mantine/core'
+import {
+  Flex,
+  Button,
+  Title,
+  Popover,
+  Select,
+  Modal,
+  Group,
+} from '@mantine/core'
 import { IconPlus } from '@tabler/icons-react'
 import Pages from './Pages'
 
 function Wardrobe() {
   const [opened, { open, close }] = useDisclosure(false)
+  const [addOpened, addControl] = useDisclosure(false)
   const {
     data: clothes,
     isLoading,
@@ -63,7 +72,7 @@ function Wardrobe() {
           <ClothesCard
             key={item.id}
             item={item}
-            open={() => handleDetailsClick(item)}
+            edit={() => handleDetailsClick(item)}
           />
         )
       }

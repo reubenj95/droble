@@ -5,6 +5,7 @@ class CreateOutfits < ActiveRecord::Migration[7.0]
       t.integer :occasion
       t.integer :season
       t.string :image
+      t.datetime :last_worn
 
       t.timestamps
     end

@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_223853) do
     t.integer "occasion"
     t.integer "season"
     t.string "image"
+    t.datetime "last_worn"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

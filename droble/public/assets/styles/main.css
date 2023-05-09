@@ -92,3 +92,34 @@
 
 }
 
+.outfit-items-container{
+  
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.outfit-item{
+  box-sizing: content-box;
+  width: 20%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  border: 1px solid #aeaeae;
+}
+
+.outfit-item.add-new{
+  aspect-ratio: 1;
+  background-color: #eeeeee;
+  color:#aeaeae; 
+}
+
+.outfit-item.add-new:hover{
+  background-color: #eeeeee;
+  color:#8bc4ec; 
+  cursor: pointer;
+}
+

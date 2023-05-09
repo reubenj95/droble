@@ -8,6 +8,12 @@ class Api::V1::OutfitClothesController < ApplicationController
     render json: @outfit_clothes
   end
 
+  def one 
+    print outfit_clothe_params
+    @outfit_clothes = OutfitClothe.where(['outfit_id = ?', params['id']]).joins(:clothe).select('clothes.id', 'clothes.description', 'clothes.image')
+    render json: @outfit_clothes
+  end
+
   # GET /outfit_clothes/1
   def show
     render json: @outfit_clothe

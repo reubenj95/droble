@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :outfit_clothes
+      get 'outfit_clothes/:id/edit', to: 'outfit_clothes#one'
       resources :seasons
       resources :occasions
       resources :brands

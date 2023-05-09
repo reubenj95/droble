@@ -10,6 +10,9 @@ export const apiSlice = createApi({
     getOutfits: builder.query({
       query: () => '/outfits',
     }),
+    getOutfitItems: builder.query({
+      query: (id) => `/outfit_clothes/${id}/edit`,
+    }),
     addToOutfit: builder.mutation({
       query: (newOutfit) => ({
         url: '/outfit_clothes',
@@ -23,5 +26,6 @@ export const apiSlice = createApi({
 export const {
   useGetWardrobeQuery,
   useGetOutfitsQuery,
+  useGetOutfitItemsQuery,
   useAddToOutfitMutation,
 } = apiSlice

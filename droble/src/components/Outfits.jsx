@@ -111,7 +111,7 @@ function Outfits() {
         opened={editOpened}
         close={editControl.close}
         drawer={{ position: 'bottom', size: '95%' }}
-        item={selected}
+        outfit={selected}
       />
       <Button onClick={handleNewClick} className="mobile-button">
         <IconPlus size={50} />

@@ -6,7 +6,6 @@ function ItemSlideout(props) {
   function handleAddImage() {
     return true
   }
-  console.log('Item:', item)
   return (
     <Drawer
       opened={opened}

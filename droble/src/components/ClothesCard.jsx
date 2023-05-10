@@ -8,71 +8,18 @@ import {
   Image,
   Popover,
   Select,
-  Title,
 } from '@mantine/core'
 import {
   useGetOutfitsQuery,
   useAddToOutfitMutation,
 } from '../features/api/apiSlice'
+import { IconCheck } from '@tabler/icons-react'
 
 function ClothesCard(props) {
-  const { edit, item } = props
+  const { edit, item, add } = props
   const { data: outfits, isLoading, isSuccess, isError } = useGetOutfitsQuery()
   const [addToOutfit, result] = useAddToOutfitMutation()
   const [outfitNames, setOutfitNames] = useState([])
-
-  useEffect(() => {
-    if (outfits) {
-      const names = outfits.map((outfit) => outfit.name)
-      setOutfitNames(names)
-    }
-  }, [outfits])
-
-  function handleSubmit(e) {
-    e.preventDefault()
-    const outfit = outfits.filter((outfit) => outfit.name === e.target[1].value)
-    const newOutfitItem = {
-      clothe_id: item.id,
-      outfit_id: outfit[0].id,
-    }
-    addToOutfit(newOutfitItem)
-  }
-
-  let popoverContent
-  if (isLoading) {
-    popoverContent = (
-      <Select
-        label="Which outfit does this belong with?"
-        placeholder="Loading outfits..."
-        searchable
-        clearable
-        nothingFound="No options"
-        data={[]}
-        height="500px"
-        dropdownPosition="bottom"
-      />
-    )
-  } else if (isError) {
-    popoverContent =
-      'There was an error loading your outfits. Please refresh the page or try again later.'
-  } else if (isSuccess) {
-    popoverContent = (
-      <form onSubmit={handleSubmit}>
-        <Select
-          label="Which outfit does this belong with?"
-          placeholder="Select one"
-          searchable
-          clearable
-          nothingFound="No outfits matching that name"
-          data={outfitNames}
-          dropdownPosition="bottom"
-        />
-        <Button type="submit" mt="lg">
-          Add to outfit
-        </Button>
-      </form>
-    )
-  }
 
   return (
     <Popover
@@ -84,6 +31,7 @@ function ClothesCard(props) {
     >
       <Card
         className="clothes-card"
+        id={`item${item.id}`}
         shadow="sm"
         padding="lg"
         radius="md"
@@ -95,6 +43,7 @@ function ClothesCard(props) {
             height="75%"
             alt="Norway"
           />
+          <IconCheck className="selected-checkmark" />
         </Card.Section>
 
         <Group position="apart" mt="md" mb="xs">
@@ -114,21 +63,20 @@ function ClothesCard(props) {
             </Button>
           </Grid.Col>
           <Grid.Col span={6}>
-            <Popover.Target>
-              <Button
-                variant="light"
-                color="blue"
-                fullWidth
-                mt="md"
-                radius="md"
-              >
-                Add to outfit
-              </Button>
-            </Popover.Target>
+            <Button
+              variant="light"
+              color="blue"
+              fullWidth
+              mt="md"
+              radius="md"
+              onClick={add}
+            >
+              <>Add to outfit</>
+            </Button>
           </Grid.Col>
         </Grid>
       </Card>
-      <Popover.Dropdown>{popoverContent}</Popover.Dropdown>
+      <Popover.Dropdown>Hello</Popover.Dropdown>
     </Popover>
   )
 }

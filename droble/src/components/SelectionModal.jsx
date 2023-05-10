@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useGetOutfitsQuery } from '../features/api/apiSlice'
+import {
+  useGetOutfitsQuery,
+  useAddToOutfitMutation,
+} from '../features/api/apiSlice'
 import { Button, NativeSelect } from '@mantine/core'
 
-function SelectionModal() {
+function SelectionModal(props) {
   const [outfitNames, setOutfitNames] = useState([])
   const [selectedOutfit, setSelectedOutfit] = useState('')
   const {
@@ -13,7 +16,9 @@ function SelectionModal() {
     isError: outfitsIsError,
     error: outfitsError,
   } = useGetOutfitsQuery()
-  const searchParams = useParams()
+  const [addItemToOutfit] = useAddToOutfitMutation()
+
+  const { selectedItem, close } = props
 
   useEffect(() => {
     if (outfits) {
@@ -21,6 +26,17 @@ function SelectionModal() {
       setOutfitNames(names)
     }
   }, [outfits])
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    const outfit = outfits.filter((outfit) => outfit.name === selectedOutfit)
+    const newOutfitItem = {
+      clothe_id: selectedItem.id,
+      outfit_id: outfit[0].id,
+    }
+    addItemToOutfit(newOutfitItem)
+    close()
+  }
 
   if (outfitsLoading) {
     return (
@@ -39,7 +55,7 @@ function SelectionModal() {
     )
   } else if (outfitsSuccess) {
     return (
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <NativeSelect
           label="Which outfit does this belong with?"
           placeholder="Select one"

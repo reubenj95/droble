@@ -32,7 +32,6 @@ function Wardrobe() {
     error: clothesError,
   } = useGetWardrobeQuery()
 
-  const [addItemToOutfit, result] = useAddToOutfitMutation()
   const [activePage, setActivePage] = useState({
     pageNumber: 1,
     offset: 0,
@@ -77,21 +76,9 @@ function Wardrobe() {
   function handleCancelAdd() {
     modalControl.open()
   }
-  // function handleSubmit(e, item) {
-  //   e.preventDefault()
-  //   console.log('Outfits:', outfits)
-  //   console.log('Outfit names:', outfitNames)
-  //   console.log('Selected outfit', selectedOutfit)
-  //   const outfit = outfits.filter((outfit) => outfit.name === selectedOutfit)
-  //   console.log('filtered outfit', outfit)
-  //   const newOutfitItem = {
-  //     // clothe_id: item.id,
-  //     //outfit_id: outfit[0].id,
-  //   }
-  //   addItemToOutfit(newOutfitItem)
-  // }
 
   function handleSelectItem(item) {
+    setSelected(item)
     if (searchParams.get('selection_mode')) {
       document.querySelector(`#item${item.id}`).classList.toggle('selected')
     } else {
@@ -199,7 +186,7 @@ function Wardrobe() {
         onClose={modalControl.close}
         title={modalContent.title}
       >
-        <SelectionModal />
+        <SelectionModal selectedItem={selected} close={modalControl.close} />
       </Modal>
     </>
   )

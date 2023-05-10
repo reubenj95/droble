@@ -18,8 +18,6 @@ import { IconCheck } from '@tabler/icons-react'
 function ClothesCard(props) {
   const { edit, item, add } = props
   const { data: outfits, isLoading, isSuccess, isError } = useGetOutfitsQuery()
-  const [addToOutfit, result] = useAddToOutfitMutation()
-  const [outfitNames, setOutfitNames] = useState([])
 
   return (
     <Popover

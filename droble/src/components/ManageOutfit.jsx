@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Drawer,
   Image,
@@ -25,9 +26,17 @@ function ManageOutfit(props) {
     isLoading,
     isSuccess,
   } = useGetOutfitItemsQuery(outfit.id)
+  const navigate = useNavigate()
 
   function handleAddImage() {
     return true
+  }
+
+  function handleAddItems() {
+    const name = outfit.name.replaceAll(' ', '+')
+    navigate(
+      `/wardrobe?selection_mode=0&outfit_id=${outfit.id}&outfit_name=${name}`
+    )
   }
 
   return (
@@ -101,7 +110,7 @@ function ManageOutfit(props) {
                   </div>
                 )
               })}
-            <div className="image-frame add-new">
+            <div onClick={handleAddItems} className="image-frame add-new">
               <IconPlus size="8rem" />
             </div>
           </div>
